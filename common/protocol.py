@@ -14,9 +14,10 @@ Notes:
 
 from __future__ import annotations
 
-import json
+import json as _json
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Mapping
+
 
 # ---- JSON keys (constants, tránh sai chính tả) ----
 KEY_ACTION = "action"
@@ -56,7 +57,7 @@ def response_error(
         KEY_DATA: data or {},
         KEY_ERROR: message,
     }
-    return json.dumps(payload, ensure_ascii=False) + "\n"
+    return _json.dumps(payload, ensure_ascii=False) + "\n"
 
 
 def loads_line(line: str) -> Dict[str, Any]:
