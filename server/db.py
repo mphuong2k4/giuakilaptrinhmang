@@ -67,9 +67,11 @@ def init_db(conn: sqlite3.Connection) -> None:
             seat_code TEXT NOT NULL,
             created_at TEXT NOT NULL,
             status TEXT NOT NULL CHECK(status IN ('active','cancelled')),
+            UNIQUE(showtime_id, seat_code),
             FOREIGN KEY(user_id) REFERENCES users(id),
             FOREIGN KEY(showtime_id) REFERENCES showtimes(id)
         );
+
         """
     )
     conn.commit()
@@ -104,7 +106,6 @@ def ensure_seats_for_showtime(conn: sqlite3.Connection, showtime_id: int, rows: 
     conn.commit()
 
 
-# ---- User/auth ----
 def create_user(conn: sqlite3.Connection, username: str, password: str) -> Tuple[bool, str]:
     try:
         conn.execute(
@@ -132,7 +133,6 @@ def get_user_by_id(conn: sqlite3.Connection, user_id: int) -> Optional[Dict[str,
     return dict(row) if row else None
 
 
-# ---- Movies/showtimes ----
 def list_movies(conn: sqlite3.Connection) -> List[Dict[str, Any]]:
     rows = conn.execute("SELECT * FROM movies ORDER BY id DESC").fetchall()
     return [dict(r) for r in rows]
@@ -187,7 +187,6 @@ def get_showtime(conn: sqlite3.Connection, showtime_id: int) -> Optional[Dict[st
     return dict(row) if row else None
 
 
-# ---- Seats & booking ----
 def get_seats(conn: sqlite3.Connection, showtime_id: int) -> List[Dict[str, Any]]:
     ensure_seats_for_showtime(conn, showtime_id)
     rows = conn.execute(
