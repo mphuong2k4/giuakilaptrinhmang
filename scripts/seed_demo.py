@@ -23,7 +23,9 @@ def _count_showtimes(conn) -> int:
 
 
 def main() -> None:
-    p = argparse.ArgumentParser()
+    p = argparse.ArgumentParser(
+    description="Seed demo movies & showtimes into cinema DB"
+)
     p.add_argument("--db", default="server/cinema.db")
     args = p.parse_args()
 
