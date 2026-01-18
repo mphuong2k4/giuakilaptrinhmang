@@ -7,3 +7,4 @@ def test_message_roundtrip():
     obj = loads_line(line.strip())
     assert obj["action"] == "ping"
     assert obj["data"]["x"] == 1
+
