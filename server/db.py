@@ -72,6 +72,7 @@ def init_db(conn: sqlite3.Connection) -> None:
             FOREIGN KEY(showtime_id) REFERENCES showtimes(id)
         );
 
+
         """
     )
     conn.commit()
