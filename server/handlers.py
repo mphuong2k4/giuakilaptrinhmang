@@ -36,9 +36,12 @@ def handle(conn, sessions: SessionStore, msg: Dict[str, Any]) -> str:
     """
     Return a JSON line response string.
     """
-    action = (msg or {}).get("action")
-    data = (msg or {}).get("data") or {}
+    if not msg:
+        return response_error("Invalid message")
 
+    action = msg.get("action")
+    data: Dict[str, Any] = msg.get("data") or {}
+    
     try:
         if action == "ping":
             return response_ok({"pong": True})
