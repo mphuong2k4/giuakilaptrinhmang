@@ -77,7 +77,7 @@ def print_showtimes(showtimes):
     for s in showtimes:
         print(f"[{s['id']}] {s['start_time']} | Phòng: {s['hall']} | Giá: {s['price']} | Phim: {s['movie_title']}")
 
-
+ 
 def print_seats(seats):
     # show as grid A-E, 1-8
     status = {x["seat_code"]: x["status"] for x in seats}
