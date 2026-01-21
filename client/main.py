@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional
 
 from common.protocol import Message
 
-
+ 
 class Client:
     def __init__(self, host: str, port: int) -> None:
         self.host = host
